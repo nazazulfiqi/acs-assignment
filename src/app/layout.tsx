@@ -5,7 +5,10 @@ import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
 
+import LoadingDots from '@/components/organisms/LoadingDots';
+
 import { siteConfig } from '@/constant/config';
+import Provider from '@/provider';
 
 // !STARTERCONF Change these default meta
 // !STARTERCONF Look at @/constant/config to change them
@@ -56,7 +59,11 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body>{children}</body>
+      <body>
+      <React.Suspense fallback={<LoadingDots hScreen={true} />}>
+          <Provider>{children}</Provider>
+        </React.Suspense>
+      </body>
     </html>
   );
 }

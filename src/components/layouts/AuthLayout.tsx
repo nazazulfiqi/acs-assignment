@@ -26,8 +26,8 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
             className='h-[500px] object-cover'
           />
         </div>
-        <div className='box-right my-auto flex min-h-[400px]  w-full flex-col justify-center px-8 lg:h-full lg:w-1/2'>
-          <div>{children}</div>
+        <div className='box-right my-auto flex min-h-screen lg:min-h-[400px]  w-full flex-col justify-center px-8 lg:h-full lg:w-1/2'>
+          <div className=''>{children}</div>
         </div>
       </div>
       <ToastContainer />

@@ -1,6 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { z } from 'zod';
 
 import AuthLayout from '@/components/layouts/AuthLayout';
@@ -20,6 +23,7 @@ import { formSignInSchema } from '@/validations/auth-schema';
 
 
 const SignInModule = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSignInSchema>>({
@@ -27,8 +31,24 @@ const SignInModule = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSignInSchema>) => {
-    console.log(values)
     setLoading(true);
+    try {
+      const response = await signIn('login', {
+        username: values.username,
+        password: values.password,
+        redirect: false,
+      });
+
+      if (response?.error !== null) {
+        toast.error("Username or password is invalid");
+      } else {
+        toast.success('Login success');
+        router.push('/pokemon');
+      }
+    } catch (error) {
+      return null;
+    }
+    setLoading(false);
 
     
   };
@@ -39,19 +59,19 @@ const SignInModule = () => {
       <div className='mb-4 space-y-1'>
         <h1 className='text-3xl font-semibold'>Masuk</h1>
         <p className='text-sm text-slate-400'>
-          Silahkan masuk menggunakan email dan kata sandi yang terdaftar
+          Silahkan masuk menggunakan username dan kata sandi yang terdaftar
         </p>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
           <FormField
             control={form.control}
-            name='email'
+            name='username'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter your email' {...field} />
+                  <Input placeholder='Enter your username' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -66,7 +86,7 @@ const SignInModule = () => {
                 <FormControl>
                   <Input
                     type='password'
-                    placeholder='Enter your email'
+                    placeholder='Enter your password'
                     {...field}
                   />
                 </FormControl>
