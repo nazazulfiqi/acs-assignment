@@ -1,28 +1,43 @@
 // /redux/slices/pokemonSlice.ts
-import { createAsyncThunk,createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface PokemonState {
   list: any[];
   loading: boolean;
   error: string | null;
+  offset: number; // Untuk infinite scroll
 }
 
 const initialState: PokemonState = {
   list: [],
   loading: false,
   error: null,
+  offset: 0,
 };
 
-export const fetchPokemons = createAsyncThunk('pokemon/fetchPokemons', async () => {
-  const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=150');
-  return response.data.results;
-});
+export const fetchPokemons = createAsyncThunk(
+  'pokemon/fetchPokemons',
+  async (offset: number) => {
+    const response = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`
+    );
+    return response.data.results;
+  }
+);
 
 const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState,
-  reducers: {},
+  reducers: {
+    resetPokemonList(state) {
+      state.list = [];
+      state.offset = 0;
+    },
+    setOffset(state, action) {
+      state.offset = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPokemons.pending, (state) => {
@@ -31,7 +46,11 @@ const pokemonSlice = createSlice({
       })
       .addCase(fetchPokemons.fulfilled, (state, action) => {
         state.loading = false;
-        state.list = action.payload;
+        // Filter untuk menghindari duplikasi
+        const uniquePokemons = action.payload.filter(
+          (pokemon : any) => !state.list.some((p) => p.name === pokemon.name)
+        );
+        state.list = [...state.list, ...uniquePokemons];
       })
       .addCase(fetchPokemons.rejected, (state, action) => {
         state.loading = false;
@@ -40,4 +59,5 @@ const pokemonSlice = createSlice({
   },
 });
 
+export const { resetPokemonList, setOffset } = pokemonSlice.actions;
 export default pokemonSlice.reducer;

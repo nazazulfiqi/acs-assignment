@@ -12,7 +12,7 @@ export default function ButtonLoading(props: ButtonLoadingProps) {
     <Button
       disabled
       type='button'
-      className={`bg-primary-500 ${props.className || ''}`}
+      className={` ${props.className || ''}`}
     >
       <Loader2 className='mr-2 h-4 w-4 animate-spin' />
       Please wait

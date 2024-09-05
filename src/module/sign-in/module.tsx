@@ -96,11 +96,11 @@ const SignInModule = () => {
           />
 
           {loading ? (
-            <ButtonLoading className='w-full'/>
+            <ButtonLoading className='w-full bg-tertiary text-white'/>
           ) : (
             <Button
               type='submit'
-              className='bg-primary-500 hover:bg-primary-600 w-full '
+              className='bg-tertiary hover:bg-tertiary-foreground text-white w-full '
     
             >
               Sign In

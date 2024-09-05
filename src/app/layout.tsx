@@ -8,7 +8,8 @@ import '@/styles/colors.css';
 import LoadingDots from '@/components/organisms/LoadingDots';
 
 import { siteConfig } from '@/constant/config';
-import Provider from '@/provider';
+import ProviderLocal from '@/provider';
+import { store } from '@/redux/store';
 
 // !STARTERCONF Change these default meta
 // !STARTERCONF Look at @/constant/config to change them
@@ -59,9 +60,10 @@ export default function RootLayout({
 }) {
   return (
     <html>
+      
       <body>
       <React.Suspense fallback={<LoadingDots hScreen={true} />}>
-          <Provider>{children}</Provider>
+          <ProviderLocal>{children}</ProviderLocal>
         </React.Suspense>
       </body>
     </html>

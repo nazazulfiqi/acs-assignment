@@ -13,17 +13,17 @@ interface AuthLayoutProps {
 
 const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
   return (
-    <div className='wrapper relative mt-0 flex min-h-[100vh] items-center justify-center bg-[#F8F8F8]'>
-      <div className='box relative flex h-full w-[1000px] rounded-lg bg-white shadow-sm shadow-slate-500 '>
-        <div className='box-left hidden min-h-[400px] w-1/2 overflow-hidden rounded-l-lg text-center lg:block'>
+    <div className='wrapper relative mt-0 flex min-h-[100vh] items-center justify-center bg-[#F8F8F8] dark:bg-slate-950'>
+      <div className='box relative flex h-full w-[1000px] rounded-lg  shadow-sm shadow-slate-500 dark:shadow-slate-800 dark:bg-secondary-foreground items-center'>
+        <div className='box-left hidden min-h-[400px] w-1/2 overflow-hidden rounded-l-lg text-center lg:flex '>
 
           <Image
-            src='/images/auth/auth-img.svg'
-            width={1000}
-            height={1000}
+            src='/images/auth/auth-1.png'
+            width={500}
+            height={400}
             alt='hero-login'
             priority={true}
-            className='h-[500px] object-cover'
+            className='h-[400px]  w-[480px] mx-auto'
           />
         </div>
         <div className='box-right my-auto flex min-h-screen lg:min-h-[400px]  w-full flex-col justify-center px-8 lg:h-full lg:w-1/2'>
