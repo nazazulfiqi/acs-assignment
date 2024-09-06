@@ -2,11 +2,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+interface Pokemon {
+  name: string;
+  url: string;
+  details?: any; // Field untuk menyimpan detail Pokemon
+}
+
 interface PokemonState {
-  list: any[];
+  list: Pokemon[];
   loading: boolean;
   error: string | null;
-  offset: number; // Untuk infinite scroll
+  offset: number;
 }
 
 const initialState: PokemonState = {
@@ -16,6 +22,7 @@ const initialState: PokemonState = {
   offset: 0,
 };
 
+// Thunk untuk mengambil daftar Pokémon awal
 export const fetchPokemons = createAsyncThunk(
   'pokemon/fetchPokemons',
   async (offset: number) => {
@@ -23,6 +30,15 @@ export const fetchPokemons = createAsyncThunk(
       `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`
     );
     return response.data.results;
+  }
+);
+
+// Thunk untuk mengambil detail dari setiap Pokémon berdasarkan URL
+export const fetchPokemonDetails = createAsyncThunk(
+  'pokemon/fetchPokemonDetails',
+  async (pokemon: Pokemon) => {
+    const response = await axios.get(pokemon.url);
+    return { name: pokemon.name, details: response.data };
   }
 );
 
@@ -46,15 +62,20 @@ const pokemonSlice = createSlice({
       })
       .addCase(fetchPokemons.fulfilled, (state, action) => {
         state.loading = false;
-        // Filter untuk menghindari duplikasi
         const uniquePokemons = action.payload.filter(
-          (pokemon : any) => !state.list.some((p) => p.name === pokemon.name)
+          (pokemon: Pokemon) => !state.list.some((p) => p.name === pokemon.name)
         );
         state.list = [...state.list, ...uniquePokemons];
       })
       .addCase(fetchPokemons.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch Pokemons';
+      })
+      .addCase(fetchPokemonDetails.fulfilled, (state, action) => {
+        const index = state.list.findIndex(p => p.name === action.payload.name);
+        if (index !== -1) {
+          state.list[index].details = action.payload.details;
+        }
       });
   },
 });
