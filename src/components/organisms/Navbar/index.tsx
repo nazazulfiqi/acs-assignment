@@ -1,16 +1,17 @@
-"use client"
+'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
 import { ModeToggle } from '@/components/organisms/Toggle';
 import { Button } from '@/components/ui/button';
 
-
-
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname(); // Gunakan useRouter untuk mendapatkan path saat ini
 
   const handleBurgerClick = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -20,17 +21,23 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(false);
   };
 
+  // Fungsi untuk menentukan apakah route saat ini aktif
+  const isActiveRoute = (route: string) => {
+    return pathname === route
+      ? 'text-primary'
+      : 'text-secondary dark:text-white hover:text-primary dark:hover:text-primary';
+  };
+
   return (
     <div className='sticky top-0 z-50 bg-white dark:bg-secondary-foreground lg:bg-white/30 lg:backdrop-blur-lg lg:dark:bg-secondary-foreground/30'>
       <nav className='relative mx-auto flex max-w-7xl items-center justify-between px-4 py-4'>
-        <Link className='flex gap-2 text-3xl font-bold leading-none' href='#'>
+        <Link className='flex gap-2 text-3xl font-bold leading-none' href='/'>
           <Image
             src='/images/auth/auth-1.png'
             alt='Logo'
             width={100}
             height={60}
           />
-
         </Link>
         <div className='lg:hidden'>
           <button
@@ -49,12 +56,12 @@ const Navbar: React.FC = () => {
         </div>
         <ul className='absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform lg:mx-auto lg:flex lg:w-auto lg:items-center lg:space-x-6'>
           <li>
-            <a
-              className='text-sm font-semibold text-secondary hover:text-primary dark:text-white dark:hover:text-primary       '
-              href='#'
+            <Link
+              className={`text-sm font-semibold ${isActiveRoute('/pokemon')}`}
+              href='/pokemon'
             >
-              Home
-            </a>
+              Pokemon
+            </Link>
           </li>
           <li className='text-gray-300'>
             <svg
@@ -73,36 +80,12 @@ const Navbar: React.FC = () => {
             </svg>
           </li>
           <li>
-            <a
-              className='text-sm font-semibold text-secondary hover:text-primary dark:text-white dark:hover:text-primary'
-              href='#'
+            <Link
+              className={`text-sm font-semibold ${isActiveRoute('/list-pokemon')}`}
+              href='/list-pokemon'
             >
-              About Us
-            </a>
-          </li>
-          <li className='text-gray-300'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              stroke='currentColor'
-              className='current-fill h-4 w-4'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z'
-              />
-            </svg>
-          </li>
-          <li>
-            <a
-              className='text-sm font-semibold text-secondary hover:text-primary dark:text-white dark:hover:text-primary'
-              href='#'
-            >
-              Services
-            </a>
+              List Pokemon
+            </Link>
           </li>
           <li className='text-gray-300'>
             <svg
@@ -121,47 +104,22 @@ const Navbar: React.FC = () => {
             </svg>
           </li>
           <li>
-            <a
-              className='text-sm font-semibold text-secondary hover:text-primary dark:text-white dark:hover:text-primary'
-              href='#'
+            <Link
+              className={`text-sm font-semibold ${isActiveRoute('/user-login')}`}
+              href='/user-login'
             >
-              Pricing
-            </a>
+              User Login
+            </Link>
           </li>
-          <li className='text-gray-300'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              stroke='currentColor'
-              className='current-fill h-4 w-4'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z'
-              />
-            </svg>
-          </li>
-          <li>
-            <a
-              className='text-sm font-semibold text-secondary hover:text-primary dark:text-white dark:hover:text-primary'
-              href='#'
-            >
-              Contact
-            </a>
-          </li>
-          {/* Other menu items remain unchanged */}
         </ul>
 
         <div className='hidden gap-4 lg:flex'>
           <ModeToggle />
           <Button
-            asChild
             className='rounded-full bg-tertiary hover:bg-tertiary-foreground text-white transition duration-200 hover:bg-hover dark:bg-tertiary dark:text-white dark:hover:bg-tertiary-foreground'
+            onClick={() => signOut()}
           >
-            <Link href='/login'>Sign Out</Link>
+            Sign Out
           </Button>
         </div>
       </nav>
@@ -178,14 +136,14 @@ const Navbar: React.FC = () => {
           <div className='mb-8 flex items-center'>
             <Link
               className='mr-auto flex gap-4 text-3xl font-bold  items-center'
-              href='#'
+              href='/'
             >
-            <Image
-            src='/images/auth/auth-1.png'
-            alt='Logo'
-            width={100}
-            height={60}
-          />
+              <Image
+                src='/images/auth/auth-1.png'
+                alt='Logo'
+                width={100}
+                height={60}
+              />
               <ModeToggle />
             </Link>
 
@@ -210,42 +168,26 @@ const Navbar: React.FC = () => {
             <ul>
               <li className='mb-1'>
                 <Link
-                  className='block rounded p-4 text-sm font-semibold text-secondary hover:bg-tertiary hover:text-white dark:text-white'
-                  href='#'
+                  className={`block rounded p-4 text-sm font-semibold ${isActiveRoute('/pokemon')}`}
+                  href='/pokemon'
                 >
-                  Home
+                  Pokemon
                 </Link>
               </li>
               <li className='mb-1'>
                 <Link
-                  className='block rounded p-4 text-sm font-semibold text-secondary hover:bg-tertiary  hover:text-white dark:text-white'
-                  href='#'
+                  className={`block rounded p-4 text-sm font-semibold ${isActiveRoute('/list-pokemon')}`}
+                  href='/list-pokemon'
                 >
-                  About Us
+                  List Pokemon
                 </Link>
               </li>
               <li className='mb-1'>
                 <Link
-                  className='block rounded p-4 text-sm font-semibold text-secondary hover:bg-tertiary hover:text-white dark:text-white'
-                  href='#'
+                  className={`block rounded p-4 text-sm font-semibold ${isActiveRoute('/user-login')}`}
+                  href='/user-login'
                 >
-                  Services
-                </Link>
-              </li>
-              <li className='mb-1'>
-                <Link
-                  className='block rounded p-4 text-sm font-semibold text-secondary hover:bg-tertiary hover:text-white dark:text-white'
-                  href='#'
-                >
-                  Pricing
-                </Link>
-              </li>
-              <li className='mb-1'>
-                <Link
-                  className='block rounded p-4 text-sm font-semibold text-secondary hover:bg-tertiary hover:text-white dark:text-white'
-                  href='#'
-                >
-                  Contact
+                  User Login
                 </Link>
               </li>
             </ul>
@@ -253,10 +195,10 @@ const Navbar: React.FC = () => {
           <div className='mt-auto'>
             <div className='pt-6'>
               <Button
-                asChild
                 className='flex rounded-full bg-tertiary transition duration-200 hover:bg-tertiary-foreground dark:bg-tertiary dark:text-white dark:hover:bg-tertiary-foreground text-white'
+                onClick={() => signOut()}
               >
-                <Link href='/login'>Contact Me</Link>
+                Sign Out
               </Button>
             </div>
             <p className='my-4 text-center text-xs text-gray-400'>

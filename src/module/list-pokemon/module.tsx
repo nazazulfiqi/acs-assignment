@@ -1,4 +1,3 @@
-// /app/module/pokemon/ListPokemonModule.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -8,7 +7,6 @@ import MainLayout from '@/components/layouts/MainLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-// Bisa dimodifikasi atau diganti jika ingin tampilan lain
 import {
   fetchPokemonDetails,
   fetchPokemons,
