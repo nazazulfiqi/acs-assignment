@@ -7,5 +7,5 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ['/pokemon', '/pokemon-list', '/user-login', '/change-password'],
+  matcher: ['/pokemon', '/list-pokemon', '/user-login', '/change-password'],
 };
