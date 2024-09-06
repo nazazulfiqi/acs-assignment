@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -13,6 +14,8 @@ import {
   setOffset,
 } from '../../redux/slices/pokemonSlice';
 import { AppDispatch, RootState } from '../../redux/store';
+import { SkeletonCard } from '@/components/organisms/SkeletonCard';
+import { SkeletonList } from '@/components/organisms/SekeletonList';
 
 const ListPokemonModule = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -118,20 +121,19 @@ const ListPokemonModule = () => {
 
   return (
     <MainLayout>
-      <section className='min-h-[80vh] mx-auto max-w-7xl px-4 py-8'>
+      <section className='mx-auto min-h-[80vh] max-w-7xl px-4 py-8'>
         <div className='w-full'>
-          <div className='flex justify-between items-center'>
-            <div className='w-1/3'>
+          <div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
+            <div className='w-full md:w-1/2 lg:w-1/3'>
               <Input
                 type='text'
                 placeholder='Search Pokemon'
-                className='pl-10'
+                className='pl-4'
                 value={searchTerm}
                 onChange={handleSearch}
               />
             </div>
-
-            <div className='mt-4 flex space-x-2'>
+            <div className='flex justify-between space-x-2'>
               <Button onClick={() => handleSort('asc')} className='text-white'>
                 Sort A-Z
               </Button>
@@ -141,9 +143,15 @@ const ListPokemonModule = () => {
             </div>
           </div>
 
-          <div className='mt-4 flex space-x-2'>
-            <select onChange={handleAbilityChange} defaultValue=''>
-              <option value=''>Filter by Ability</option>
+          <div className='mt-4 flex flex-col gap-4 md:flex-row'>
+            <select
+              onChange={handleAbilityChange}
+              defaultValue=''
+              className='w-full rounded-md dark:bg-slate-950 dark:text-white'
+            >
+              <option value='' className=''>
+                Filter by Ability
+              </option>
               {Array.from(
                 new Set(
                   list.flatMap((p) =>
@@ -157,7 +165,11 @@ const ListPokemonModule = () => {
               ))}
             </select>
 
-            <select onChange={handleTypeChange} defaultValue=''>
+            <select
+              onChange={handleTypeChange}
+              defaultValue=''
+              className='w-full rounded-md dark:bg-slate-950 dark:text-white'
+            >
               <option value=''>Filter by Type</option>
               {Array.from(
                 new Set(
@@ -173,36 +185,44 @@ const ListPokemonModule = () => {
             </select>
           </div>
 
-          {loading ? (
-            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 mt-4 gap-6'>
+          {!list.length && !loading ? (
+            <div className='mt-8 grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-5'>
               {Array.from({ length: 10 }).map((_, index) => (
-                <div key={index} className='p-4 border rounded shadow'>
-                  Loading...
-                </div> // Ganti dengan SkeletonCard jika perlu
+                <SkeletonList key={index} />
               ))}
             </div>
-          ) : filteredList.length > 0 ? (
-            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 mt-4 gap-2'>
+          ) : (
+            <div className='mt-8 grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-5'>
               {filteredList.map((pokemon, index) => (
-                <div key={index} className='p-4 border rounded shadow'>
-                  <h3 className='text-lg font-bold'>{pokemon.name}</h3>
-                  <p className='text-sm'>
+                <Link
+                  href={`/list-pokemon/${pokemon.name}`}
+                  key={index}
+                  className='rounded border p-4 shadow'
+                >
+                  <h3 className='text-xl font-bold'>{pokemon.name}</h3>
+                  <p className='text-xs'>
                     Type:{' '}
                     {pokemon.details?.types
                       .map((t: any) => t.type.name)
                       .join(', ')}
                   </p>
-                  <p className='text-sm'>
+                  <p className='text-xs'>
                     Abilities:{' '}
                     {pokemon.details?.abilities
                       .map((a: any) => a.ability.name)
                       .join(', ')}
                   </p>
-                </div>
+                </Link>
               ))}
             </div>
-          ) : (
-            <h2 className='text-center text-base mt-16'>No Pokémon found</h2>
+          )}
+
+          {loading && (
+            <div className='mt-8 grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-5'>
+              {Array.from({ length: 20 }).map((_, index) => (
+                <SkeletonList key={index} />
+              ))}
+            </div>
           )}
         </div>
       </section>

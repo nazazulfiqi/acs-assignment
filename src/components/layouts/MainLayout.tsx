@@ -1,22 +1,22 @@
-import { FC } from "react";
+import { FC } from 'react';
+import { ToastContainer } from 'react-toastify';
 
-import Navbar from "@/components/organisms/Navbar";
+import 'react-toastify/dist/ReactToastify.css';
+
+import Navbar from '@/components/organisms/Navbar';
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
-
   return (
-    
     <main>
-      <Navbar/>
+      <Navbar />
       {children}
+      <ToastContainer />
     </main>
-  )
+  );
+};
 
-
-}
-
-export default MainLayout
+export default MainLayout;

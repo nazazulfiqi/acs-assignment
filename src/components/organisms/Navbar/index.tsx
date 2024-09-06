@@ -23,8 +23,8 @@ const Navbar: React.FC = () => {
 
   // Fungsi untuk menentukan apakah route saat ini aktif
   const isActiveRoute = (route: string) => {
-    return pathname === route
-      ? 'text-primary'
+    return pathname.includes(route)
+      ? 'text-tertiary '
       : 'text-secondary dark:text-white hover:text-primary dark:hover:text-primary';
   };
 
@@ -111,12 +111,36 @@ const Navbar: React.FC = () => {
               User Login
             </Link>
           </li>
+          <li className='text-gray-300'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              stroke='currentColor'
+              className='current-fill h-4 w-4'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z'
+              />
+            </svg>
+          </li>
+          <li>
+            <Link
+              className={`text-sm font-semibold ${isActiveRoute('/change-password')}`}
+              href='/change-password'
+            >
+              Change Password
+            </Link>
+          </li>
         </ul>
 
         <div className='hidden gap-4 lg:flex'>
           <ModeToggle />
           <Button
-            className='rounded-full bg-tertiary hover:bg-tertiary-foreground text-white transition duration-200 hover:bg-hover dark:bg-tertiary dark:text-white dark:hover:bg-tertiary-foreground'
+            className='hover:bg-hover rounded-full bg-tertiary text-white transition duration-200 hover:bg-tertiary-foreground dark:bg-tertiary dark:text-white dark:hover:bg-tertiary-foreground'
             onClick={() => signOut()}
           >
             Sign Out
@@ -135,7 +159,7 @@ const Navbar: React.FC = () => {
         <nav className='fixed bottom-0 left-0 top-0 flex w-5/6 max-w-sm flex-col overflow-y-auto border-r bg-white px-6 py-6 dark:bg-secondary-foreground'>
           <div className='mb-8 flex items-center'>
             <Link
-              className='mr-auto flex gap-4 text-3xl font-bold  items-center'
+              className='mr-auto flex items-center gap-4 text-3xl  font-bold'
               href='/'
             >
               <Image
@@ -190,12 +214,20 @@ const Navbar: React.FC = () => {
                   User Login
                 </Link>
               </li>
+              <li className='mb-1'>
+                <Link
+                  className={`block rounded p-4 text-sm font-semibold ${isActiveRoute('/change-password')}`}
+                  href='/change-password'
+                >
+                  Change Password
+                </Link>
+              </li>
             </ul>
           </div>
           <div className='mt-auto'>
             <div className='pt-6'>
               <Button
-                className='flex rounded-full bg-tertiary transition duration-200 hover:bg-tertiary-foreground dark:bg-tertiary dark:text-white dark:hover:bg-tertiary-foreground text-white'
+                className='flex w-full rounded-full bg-tertiary text-white transition duration-200 hover:bg-tertiary-foreground dark:bg-tertiary dark:text-white dark:hover:bg-tertiary-foreground'
                 onClick={() => signOut()}
               >
                 Sign Out

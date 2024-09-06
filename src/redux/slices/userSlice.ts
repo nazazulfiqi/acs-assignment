@@ -1,40 +1,105 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 interface UserState {
+  id?: string;
+  name?: string;
   username: string;
-  password: string;
   email: string;
   phone: string;
   isLoggedIn: boolean;
+  error?: string;
 }
 
 const initialState: UserState = {
-  username: 'nazazul',
-  password: '123',
-  email: 'zulfiqinaza@gmail.com',
-  phone: '088211797682',
+  username: '',
+  email: '',
+  phone: '',
   isLoggedIn: false,
 };
+
+export const loginUser = createAsyncThunk(
+  'user/loginUser',
+  async ({ username, password }: { username: string; password: string }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`https://acs-api.vercel.app/users`);
+      const user = response.data.find((user: any) => user.username === username && user.password === password);
+
+      if (user) {
+        return user;
+      } else {
+        return rejectWithValue('Invalid username or password');
+      }
+    } catch (error) {
+      return rejectWithValue('Error logging in');
+    }
+  }
+);
+
+export const updatePassword = createAsyncThunk(
+  'user/updatePassword',
+  async ({ id, currentPassword, newPassword }: { id: string; currentPassword: string; newPassword: string }, { rejectWithValue }) => {
+    try {
+      // Ambil data pengguna dari json-server
+      const response = await axios.get(`https://acs-api.vercel.app/users/${id}`);
+      const user = response.data;
+
+      // Validasi password lama di sisi klien
+      if (user.password !== currentPassword) {
+        return rejectWithValue('Current password is incorrect');
+      }
+
+      // Jika validasi berhasil, update password
+      const updatedUser = {
+        ...user,
+        password: newPassword,
+      };
+
+      await axios.put(`https://acs-api.vercel.app/users/${id}`, updatedUser);
+
+      return newPassword;
+    } catch (error) {
+      return rejectWithValue('Error updating password');
+    }
+  }
+);
+
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login(state, action: PayloadAction<{ username: string; password: string }>) {
-      if (action.payload.username === state.username && action.payload.password === state.password) {
-        state.isLoggedIn = true;
-      } else {
-        throw new Error('Invalid username or password');
-      }
-    },
     logout(state) {
       state.isLoggedIn = false;
+      state.id = undefined;
+      state.name = undefined;
+      state.username = '';
+      state.email = '';
+      state.phone = '';
     },
-    changePassword(state, action: PayloadAction<string>) {
-      state.password = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.fulfilled, (state, action: PayloadAction<any>) => {
+        state.isLoggedIn = true;
+        state.id = action.payload.id;
+        state.name = action.payload.name;
+        state.username = action.payload.username;
+        state.email = action.payload.email;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        state.error = action.payload as string;
+      })
+      .addCase(updatePassword.fulfilled, (state, action: PayloadAction<string>) => {
+        // Password successfully updated
+        console.log('Password updated successfully');
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.error = action.payload as string;
+      });
   },
 });
 
-export const { login, logout, changePassword } = userSlice.actions;
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;

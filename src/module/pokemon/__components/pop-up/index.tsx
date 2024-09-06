@@ -25,10 +25,6 @@ export const ModalDetailPokemon = ({
 }: ModalDetailPokemonProps) => {
   const [pokemonDetail, setPokemonDetail] = useState<any>(null);
 
-  console.log(url);
-
-  console.log(pokemonDetail);
-
   useEffect(() => {
     if (url) {
       axios.get(url).then((response) => {
@@ -55,18 +51,18 @@ export const ModalDetailPokemon = ({
               {pokemonDetail ? pokemonDetail.name : 'Loading...'}
             </p>
           </DialogTitle>
-          <DialogDescription className='text-black dark:text-slate-400 pt-4'>
+          <DialogDescription className='pt-4 text-black dark:text-slate-400'>
             {pokemonDetail ? (
               pokemonDetail.stats.map((stat: any) => (
-                <div key={stat.stat.name} className='flex items-center mb-2'>
-                  <p className='w-24 text-base'>{stat.stat.name}:</p>
+                <div key={stat.stat.name} className='mb-2 flex items-center'>
+                  <p className='w-52 text-base'>{stat.stat.name}</p>
 
-                  <p className='w-8 text-base text-right'>{stat.base_stat}</p>
+                  <p className='w-8 text-right text-base'>{stat.base_stat}</p>
 
-                  <div className='w-full ml-4 bg-gray-200 rounded-full h-2.5'>
+                  <div className='ml-4 h-2.5 w-full rounded-full bg-gray-200'>
                     <div
                       className='darkbg-tertiary h-2.5 rounded-full bg-primary'
-                      style={{ width: `${(stat.base_stat / 100) * 100}%` }}
+                      style={{ width: `${(stat.base_stat / 225) * 100}%` }}
                     ></div>
                   </div>
                 </div>

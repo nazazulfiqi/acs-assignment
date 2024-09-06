@@ -1,4 +1,3 @@
-// /middleware.ts
 import { withAuth } from 'next-auth/middleware';
 
 export default withAuth({
@@ -8,5 +7,5 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ['/pokemon', '/pokemon-list', '/user', '/change-password'],
+  matcher: ['/pokemon', '/pokemon-list', '/user-login', '/change-password'],
 };

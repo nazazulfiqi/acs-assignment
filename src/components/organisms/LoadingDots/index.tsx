@@ -9,12 +9,12 @@ const LoadingDots: FC<Props> = ({ hScreen = false }) => {
     <div
       className={`${
         hScreen ? 'h-screen' : ''
-      } flex items-center justify-center space-x-2 bg-white dark:invert`}
+      } flex items-center justify-center space-x-2 bg-white dark:bg-slate-950`}
     >
       <span className='sr-only'>Loading...</span>
-      <div className='bg-primary-500 h-6 w-6 animate-bounce rounded-full [animation-delay:-0.3s]'></div>
-      <div className='bg-primary-500 h-6 w-6 animate-bounce rounded-full [animation-delay:-0.15s]'></div>
-      <div className='bg-primary-500 h-6 w-6 animate-bounce rounded-full'></div>
+      <div className='h-6 w-6 animate-bounce rounded-full bg-primary [animation-delay:-0.3s]'></div>
+      <div className='h-6 w-6 animate-bounce rounded-full bg-primary [animation-delay:-0.15s]'></div>
+      <div className='h-6 w-6 animate-bounce rounded-full bg-primary'></div>
     </div>
   );
 };

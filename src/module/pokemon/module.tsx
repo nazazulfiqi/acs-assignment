@@ -73,10 +73,10 @@ const PokemonModule = () => {
 
   return (
     <MainLayout>
-      <section className='min-h-[80vh] mx-auto max-w-7xl px-4 py-8'>
+      <section className='mx-auto min-h-[80vh] max-w-7xl px-4 py-8'>
         <div className='w-full'>
-          <div className='flex justify-between items-center'>
-            <div className='w-1/3'>
+          <div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
+            <div className='w-full md:w-1/2 lg:w-1/3'>
               <Input
                 type='text'
                 placeholder='Search Pokemon'
@@ -97,13 +97,13 @@ const PokemonModule = () => {
           </div>
 
           {!list.length && !loading ? (
-            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 mt-8 gap-6 '>
+            <div className='mt-8 grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-5 '>
               {Array.from({ length: 20 }).map((_, index) => (
                 <SkeletonCard key={index} />
               ))}
             </div>
           ) : (
-            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 mt-4 gap-2'>
+            <div className='mt-4 grid  grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-5'>
               {filteredList.map((pokemon, index) => (
                 <CardPokemon key={index} pokemon={pokemon} />
               ))}
@@ -111,7 +111,7 @@ const PokemonModule = () => {
           )}
 
           {loading && (
-            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 mt-4 gap-6'>
+            <div className='mt-4 grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-5'>
               {Array.from({ length: 20 }).map((_, index) => (
                 <SkeletonCard key={index} />
               ))}
