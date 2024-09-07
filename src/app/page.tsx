@@ -26,15 +26,15 @@ export const generateMetadata = (): Metadata => {
       title: 'Login to Pokémon World',
       description:
         'Log in to explore and discover detailed information about Pokémon.',
-      url: 'https://nazazulfiqi.vercel.app/login',
-      images: ['https://nazazulfiqi.vercel.app/images/og-login.jpg'],
+      url: 'https://acs-assignment-nz.vercel.app',
+      images: ['https://acs-assignment-nz.vercel.app/images/og.png'],
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Login to Pokémon World',
       description:
-        'Log in to explore and discover detailed information about your favorite Pokémon.',
-      images: ['https://nazazulfiqi.vercel.app/images/og-login.jpg'],
+        'Log in to explore and discover detailed information about Pokémon.',
+      images: ['https://acs-assignment-nz.vercel.app/images/og.png'],
     },
   };
 };
