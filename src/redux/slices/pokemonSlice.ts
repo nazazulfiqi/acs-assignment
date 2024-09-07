@@ -24,7 +24,7 @@ const initialState: PokemonState = {
 
 const apiUrl2 = process.env.NEXT_PUBLIC_API_URL_2;
 
-// Thunk untuk mengambil daftar Pokémon awal
+
 export const fetchPokemons = createAsyncThunk(
   'pokemon/fetchPokemons',
   async (offset: number) => {
@@ -35,7 +35,7 @@ export const fetchPokemons = createAsyncThunk(
   }
 );
 
-// Thunk untuk mengambil detail dari setiap Pokémon berdasarkan URL
+
 export const fetchPokemonDetails = createAsyncThunk(
   'pokemon/fetchPokemonDetails',
   async (pokemon: Pokemon) => {

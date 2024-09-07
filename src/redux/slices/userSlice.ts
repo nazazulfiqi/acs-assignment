@@ -43,16 +43,16 @@ export const updatePassword = createAsyncThunk(
   'user/updatePassword',
   async ({ id, currentPassword, newPassword }: { id: string; currentPassword: string; newPassword: string }, { rejectWithValue }) => {
     try {
-      // Ambil data pengguna dari json-server
+    
       const response = await axios.get(`${apiUrl}/users/${id}`);
       const user = response.data;
 
-      // Validasi password lama di sisi klien
+      
       if (user.password !== currentPassword) {
         return rejectWithValue('Current password is incorrect');
       }
 
-      // Jika validasi berhasil, update password
+  
       const updatedUser = {
         ...user,
         password: newPassword,
@@ -95,7 +95,7 @@ const userSlice = createSlice({
         state.error = action.payload as string;
       })
       .addCase(updatePassword.fulfilled, (state, action: PayloadAction<string>) => {
-        // Password successfully updated
+   
         console.log('Password updated successfully');
       })
       .addCase(updatePassword.rejected, (state, action) => {

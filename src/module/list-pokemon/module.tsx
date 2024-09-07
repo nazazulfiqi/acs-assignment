@@ -26,38 +26,32 @@ const ListPokemonModule = () => {
   const [selectedAbility, setSelectedAbility] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
-  // Fetch initial data
   useEffect(() => {
     if (offset === 0) {
       dispatch(fetchPokemons(offset)).then((action: any) => {
         action.payload.forEach((pokemon: any) => {
-          dispatch(fetchPokemonDetails(pokemon)); // Ambil detail untuk setiap Pokemon
+          dispatch(fetchPokemonDetails(pokemon));
         });
       });
     }
   }, [dispatch, offset]);
 
-  // Handle search input change
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value.toLowerCase());
   };
 
-  // Handle sort order change
   const handleSort = (order: 'asc' | 'desc') => {
     setSortOrder(order);
   };
 
-  // Handle ability filter change
   const handleAbilityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedAbility(e.target.value);
   };
 
-  // Handle type filter change
   const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedType(e.target.value);
   };
 
-  // Filter and sort the list of Pokémon
   const filteredList = list
     .filter((pokemon) => {
       if (searchTerm && !pokemon.name.includes(searchTerm)) {
@@ -88,7 +82,6 @@ const ListPokemonModule = () => {
       }
     });
 
-  // Handle infinite scroll
   useEffect(() => {
     const handleScroll = () => {
       if (
@@ -107,7 +100,6 @@ const ListPokemonModule = () => {
     };
   }, [dispatch, offset, loading]);
 
-  // Fetch more Pokémon when offset changes (and no filters are applied)
   useEffect(() => {
     if (offset > 0 && searchTerm === '' && !selectedAbility && !selectedType) {
       dispatch(fetchPokemons(offset)).then((action: any) => {

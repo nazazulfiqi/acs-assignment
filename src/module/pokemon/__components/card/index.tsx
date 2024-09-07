@@ -1,4 +1,3 @@
-// /app/module/pokemon/__components/card/CardPokemon.tsx
 import Image from 'next/image';
 import React, { FC } from 'react';
 
@@ -27,7 +26,7 @@ const CardPokemon: FC<CardPokemonProps> = ({ pokemon }) => {
     <ModalDetailPokemon
       url={pokemon.url}
       modalTrigger={
-        <Card className='mx-auto mt-4 min-w-fit overflow-hidden rounded-lg cursor-pointer'>
+        <Card className='mx-auto mt-4 min-w-fit cursor-pointer overflow-hidden rounded-lg'>
           <CardHeader className='h-[200px] w-full overflow-hidden p-2 '>
             <Image
               src={imageUrl}

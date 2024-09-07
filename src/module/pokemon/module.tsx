@@ -1,4 +1,3 @@
-// /app/module/pokemon/PokemonModule.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
