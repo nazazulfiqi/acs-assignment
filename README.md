@@ -31,11 +31,19 @@ This repository is 🔋 battery packed with:
 - 🗺 Site Map — Automatically generate sitemap.xml
 - 📦 Expansion Pack — Easily install common libraries, additional components, and configs.
 
-## Deployment
+## Deployment / Demo
 
 The application is deployed on [Vercel] 
 
 ### Frontend
+
+account 1
+username : `nazazulfiqi`
+password : `123456`
+
+account 2
+username : `acs`
+password : `123456`
 
 https://acs-assignment-nz.vercel.app/
 
