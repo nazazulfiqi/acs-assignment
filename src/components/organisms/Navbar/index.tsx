@@ -3,9 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
+import { ModalLogout } from '@/components/organisms/Navbar/Popup-Logout';
 import { ModeToggle } from '@/components/organisms/Toggle';
 import { Button } from '@/components/ui/button';
 
@@ -139,12 +139,13 @@ const Navbar: React.FC = () => {
 
         <div className='hidden gap-4 lg:flex'>
           <ModeToggle />
-          <Button
-            className='hover:bg-hover rounded-full bg-tertiary text-white transition duration-200 hover:bg-tertiary-foreground dark:bg-tertiary dark:text-white dark:hover:bg-tertiary-foreground'
-            onClick={() => signOut()}
-          >
-            Sign Out
-          </Button>
+          <ModalLogout
+            modalTrigger={
+              <Button className='hover:bg-hover rounded-full bg-tertiary text-white transition duration-200 hover:bg-tertiary-foreground dark:bg-tertiary dark:text-white dark:hover:bg-tertiary-foreground'>
+                Sign Out
+              </Button>
+            }
+          />
         </div>
       </nav>
       <div
@@ -226,12 +227,13 @@ const Navbar: React.FC = () => {
           </div>
           <div className='mt-auto'>
             <div className='pt-6'>
-              <Button
-                className='flex w-full rounded-full bg-tertiary text-white transition duration-200 hover:bg-tertiary-foreground dark:bg-tertiary dark:text-white dark:hover:bg-tertiary-foreground'
-                onClick={() => signOut()}
-              >
-                Sign Out
-              </Button>
+              <ModalLogout
+                modalTrigger={
+                  <Button className='flex w-full rounded-full bg-tertiary text-white transition duration-200 hover:bg-tertiary-foreground dark:bg-tertiary dark:text-white dark:hover:bg-tertiary-foreground'>
+                    Sign Out
+                  </Button>
+                }
+              />
             </div>
             <p className='my-4 text-center text-xs text-gray-400'>
               <span>Copyright © Naza Zulfiqi 2024</span>
