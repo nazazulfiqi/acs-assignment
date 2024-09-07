@@ -9,7 +9,7 @@
 5. set the `NEXT_PUBLIC_API_URL_2` to https://pokeapi.co/api/v2
 6. Clone the repository json server (Back End) at `https://github.com/nazazulfiqi/acs-api`
 7. Start the Back End (JSON server): `npm start`.
-8. Start the Front End Vite development server: `yarn run dev`.
+8. Start the Front End Next.js development server: `yarn run dev`.
 9. Open the application in your browser at `http://localhost:3000`.
 
 
@@ -21,7 +21,7 @@ This repository is 🔋 battery packed with:
 - ⚛️ React 18
 - ✨ TypeScript
 - 🧤 Redux Toolkit
-- 🔒 Next Auth + Middleware
+- 🔒 Next Auth v4 + Middleware
 - 💨 Tailwind CSS 3 + Shadcn UI — Configured with CSS Variables to extend the **primary** color
 - 🃏 Jest — Configured for unit testing
 - 📈 Absolute Import and Path Alias — Import components using `@/` prefix
