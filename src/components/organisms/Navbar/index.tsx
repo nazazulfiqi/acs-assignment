@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname(); // Gunakan useRouter untuk mendapatkan path saat ini
+  const pathname = usePathname();
 
   const handleBurgerClick = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -21,7 +21,6 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(false);
   };
 
-  // Fungsi untuk menentukan apakah route saat ini aktif
   const isActiveRoute = (route: string) => {
     return pathname.includes(route)
       ? 'text-tertiary '
@@ -31,7 +30,10 @@ const Navbar: React.FC = () => {
   return (
     <div className='sticky top-0 z-50 bg-white dark:bg-secondary-foreground lg:bg-white/30 lg:backdrop-blur-lg lg:dark:bg-secondary-foreground/30'>
       <nav className='relative mx-auto flex max-w-7xl items-center justify-between px-4 py-4'>
-        <Link className='flex gap-2 text-3xl font-bold leading-none' href='/'>
+        <Link
+          className='flex gap-2 text-3xl font-bold leading-none'
+          href='/pokemon'
+        >
           <Image
             src='/images/auth/auth-1.png'
             alt='Logo'
@@ -161,7 +163,7 @@ const Navbar: React.FC = () => {
           <div className='mb-8 flex items-center'>
             <Link
               className='mr-auto flex items-center gap-4 text-3xl  font-bold'
-              href='/'
+              href='/pokemon'
             >
               <Image
                 src='/images/auth/auth-1.png'
