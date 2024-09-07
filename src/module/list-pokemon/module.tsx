@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import MainLayout from '@/components/layouts/MainLayout';
+import { SkeletonList } from '@/components/organisms/SekeletonList';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -14,8 +15,6 @@ import {
   setOffset,
 } from '../../redux/slices/pokemonSlice';
 import { AppDispatch, RootState } from '../../redux/store';
-import { SkeletonCard } from '@/components/organisms/SkeletonCard';
-import { SkeletonList } from '@/components/organisms/SekeletonList';
 
 const ListPokemonModule = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -147,7 +146,7 @@ const ListPokemonModule = () => {
             <select
               onChange={handleAbilityChange}
               defaultValue=''
-              className='w-full rounded-md dark:bg-slate-950 dark:text-white'
+              className='w-full rounded-md text-sm dark:bg-slate-950 dark:text-white'
             >
               <option value='' className=''>
                 Filter by Ability
@@ -168,7 +167,7 @@ const ListPokemonModule = () => {
             <select
               onChange={handleTypeChange}
               defaultValue=''
-              className='w-full rounded-md dark:bg-slate-950 dark:text-white'
+              className='w-full rounded-md text-sm dark:bg-slate-950 dark:text-white'
             >
               <option value=''>Filter by Type</option>
               {Array.from(

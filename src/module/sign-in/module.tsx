@@ -1,7 +1,9 @@
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
@@ -21,7 +23,6 @@ import { Input } from '@/components/ui/input';
 
 import { formSignInSchema } from '@/validations/auth-schema';
 
-
 const SignInModule = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -40,7 +41,7 @@ const SignInModule = () => {
       });
 
       if (response?.error !== null) {
-        toast.error("Username or password is invalid");
+        toast.error('Username or password is invalid');
       } else {
         toast.success('Login success');
         router.push('/pokemon');
@@ -49,10 +50,7 @@ const SignInModule = () => {
       return null;
     }
     setLoading(false);
-
-    
   };
-
 
   return (
     <AuthLayout>
@@ -96,12 +94,11 @@ const SignInModule = () => {
           />
 
           {loading ? (
-            <ButtonLoading className='w-full bg-tertiary text-white'/>
+            <ButtonLoading className='w-full bg-tertiary text-white' />
           ) : (
             <Button
               type='submit'
-              className='bg-tertiary hover:bg-tertiary-foreground text-white w-full '
-    
+              className='w-full bg-tertiary text-white hover:bg-tertiary-foreground '
             >
               Sign In
             </Button>
@@ -109,7 +106,7 @@ const SignInModule = () => {
         </form>
       </Form>
     </AuthLayout>
-  )
-}
+  );
+};
 
-export default SignInModule
+export default SignInModule;

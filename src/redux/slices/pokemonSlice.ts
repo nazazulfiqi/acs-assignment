@@ -22,12 +22,14 @@ const initialState: PokemonState = {
   offset: 0,
 };
 
+const apiUrl2 = process.env.NEXT_PUBLIC_API_URL_2;
+
 // Thunk untuk mengambil daftar Pokémon awal
 export const fetchPokemons = createAsyncThunk(
   'pokemon/fetchPokemons',
   async (offset: number) => {
     const response = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`
+      `${apiUrl2}/pokemon?limit=20&offset=${offset}`
     );
     return response.data.results;
   }

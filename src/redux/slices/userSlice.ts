@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+
 interface UserState {
   id?: string;
   name?: string;
@@ -18,11 +19,13 @@ const initialState: UserState = {
   isLoggedIn: false,
 };
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const loginUser = createAsyncThunk(
   'user/loginUser',
   async ({ username, password }: { username: string; password: string }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`https://acs-api.vercel.app/users`);
+      const response = await axios.get(`${apiUrl}/users`);
       const user = response.data.find((user: any) => user.username === username && user.password === password);
 
       if (user) {
@@ -41,7 +44,7 @@ export const updatePassword = createAsyncThunk(
   async ({ id, currentPassword, newPassword }: { id: string; currentPassword: string; newPassword: string }, { rejectWithValue }) => {
     try {
       // Ambil data pengguna dari json-server
-      const response = await axios.get(`https://acs-api.vercel.app/users/${id}`);
+      const response = await axios.get(`${apiUrl}/users/${id}`);
       const user = response.data;
 
       // Validasi password lama di sisi klien
@@ -55,7 +58,7 @@ export const updatePassword = createAsyncThunk(
         password: newPassword,
       };
 
-      await axios.put(`https://acs-api.vercel.app/users/${id}`, updatedUser);
+      await axios.put(`${apiUrl}/users/${id}`, updatedUser);
 
       return newPassword;
     } catch (error) {

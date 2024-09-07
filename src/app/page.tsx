@@ -1,9 +1,8 @@
-'use client';
-
-import Head from 'next/head';
+import { Metadata } from 'next';
 import * as React from 'react';
 import '@/lib/env';
 
+import { siteConfig } from '@/constant/config';
 import SignInModule from '@/module/sign-in/module';
 
 /**
@@ -18,13 +17,32 @@ import SignInModule from '@/module/sign-in/module';
 // Before you begin editing, follow all comments with `STARTERCONF`,
 // to customize the default configuration.
 
+export const generateMetadata = (): Metadata => {
+  return {
+    title: `Login - ${siteConfig.title}`,
+    description:
+      'Log in to explore and discover detailed information about Pokémon.',
+    openGraph: {
+      title: 'Login to Pokémon World',
+      description:
+        'Log in to explore and discover detailed information about Pokémon.',
+      url: 'https://nazazulfiqi.vercel.app/login',
+      images: ['https://nazazulfiqi.vercel.app/images/og-login.jpg'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Login to Pokémon World',
+      description:
+        'Log in to explore and discover detailed information about your favorite Pokémon.',
+      images: ['https://nazazulfiqi.vercel.app/images/og-login.jpg'],
+    },
+  };
+};
+
 export default function HomePage() {
   return (
     <main>
-      <Head>
-        <title>Hi</title>
-      </Head>
-      <SignInModule/>
+      <SignInModule />
     </main>
   );
 }

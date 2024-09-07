@@ -13,11 +13,13 @@ const initialState: PokemonDetailState = {
   error: null,
 };
 
+const apiUrl2 = process.env.NEXT_PUBLIC_API_URL_2;
+
 export const fetchPokemonDetail = createAsyncThunk(
   'pokemonDetail/fetchPokemonDetail',
   async (name: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+      const response = await axios.get(`${apiUrl2}/pokemon/${name}`);
       return response.data;
     } catch (error) {
       return rejectWithValue('Failed to fetch Pokémon details');

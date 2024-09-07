@@ -9,7 +9,6 @@ import LoadingDots from '@/components/organisms/LoadingDots';
 
 import { siteConfig } from '@/constant/config';
 import ProviderLocal from '@/provider';
-import { store } from '@/redux/store';
 
 // !STARTERCONF Change these default meta
 // !STARTERCONF Look at @/constant/config to change them
@@ -43,14 +42,14 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     images: [`${siteConfig.url}/images/og.jpg`],
-    // creator: '@th_clarence',
+    creator: '@nazazulfiqii',
   },
-  // authors: [
-  //   {
-  //     name: 'Theodorus Clarence',
-  //     url: 'https://theodorusclarence.com',
-  //   },
-  // ],
+  authors: [
+    {
+      name: 'Naza Zulfiqi',
+      url: 'https://nazazulfiqi.vercel.app/',
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -60,9 +59,8 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      
       <body>
-      <React.Suspense fallback={<LoadingDots hScreen={true} />}>
+        <React.Suspense fallback={<LoadingDots hScreen={true} />}>
           <ProviderLocal>{children}</ProviderLocal>
         </React.Suspense>
       </body>

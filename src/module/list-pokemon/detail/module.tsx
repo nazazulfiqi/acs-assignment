@@ -1,18 +1,18 @@
 'use client';
 
+import Image from 'next/image';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import MainLayout from '@/components/layouts/MainLayout';
+import LoadingDots from '@/components/organisms/LoadingDots';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { fetchPokemonDetail } from '@/redux/slices/pokemonDetailSlice';
 import { AppDispatch, RootState } from '@/redux/store';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import LoadingDots from '@/components/organisms/LoadingDots';
 
 const DetailPokemonModule = () => {
   const params = useParams();
