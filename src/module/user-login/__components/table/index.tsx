@@ -14,7 +14,6 @@ import {
 const TableUserLogin = () => {
   const { data: session } = useSession();
 
-  console.log(session);
   return (
     <Table className='mt-6 border'>
       <TableHeader>

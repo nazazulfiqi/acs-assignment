@@ -49,7 +49,7 @@ const ChangePasswordModule = () => {
 
       if (updatePassword.fulfilled.match(resultAction)) {
         toast.success('Password changed successfully!');
-        router.push('/');
+        router.push('/change-password');
       } else {
         toast.error(resultAction.payload as string);
       }

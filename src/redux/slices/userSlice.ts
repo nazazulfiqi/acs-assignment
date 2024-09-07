@@ -94,10 +94,7 @@ const userSlice = createSlice({
         state.isLoggedIn = false;
         state.error = action.payload as string;
       })
-      .addCase(updatePassword.fulfilled, (state, action: PayloadAction<string>) => {
-   
-        console.log('Password updated successfully');
-      })
+      
       .addCase(updatePassword.rejected, (state, action) => {
         state.error = action.payload as string;
       });
