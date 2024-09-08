@@ -1,7 +1,10 @@
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
 import * as React from 'react';
 import '@/lib/env';
 
+import { authOptions } from '@/app/api/auth/[...nextauth]/option';
 import { siteConfig } from '@/constant/config';
 import SignInModule from '@/module/sign-in/module';
 
@@ -39,7 +42,13 @@ export const generateMetadata = (): Metadata => {
   };
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect('/pokemon');
+  }
+
   return (
     <main>
       <SignInModule />
